@@ -1,0 +1,179 @@
+TITLE: Product | Sanjh Shringar
+DESC: Made-to-measure ethnic and bridal wear by Sanjh Shringar, with free video-call styling.
+BODY: pdp-page
+---
+<div class="container">
+  <nav class="crumbs" aria-label="Breadcrumb">
+    <ol>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="shop.html" data-pdp-col>Shop</a></li>
+      <li aria-current="page" data-pdp-crumb>Product</li>
+    </ol>
+  </nav>
+
+  <div class="pdp pdp--skel" data-pdp-skel aria-hidden="true">
+    <div class="gallery">
+      <div class="gallery__thumbs">
+        <div class="gallery__thumb skel-box"></div>
+        <div class="gallery__thumb skel-box"></div>
+        <div class="gallery__thumb skel-box"></div>
+      </div>
+      <div class="gallery__main skel-box"></div>
+    </div>
+    <div class="buy">
+      <span class="skel-line skel-line--sm"></span>
+      <span class="skel-line skel-line--lg"></span>
+      <span class="skel-line skel-line--md"></span>
+      <span class="skel-line"></span>
+      <span class="skel-line" style="width:85%"></span>
+      <span class="skel-line skel-line--btn"></span>
+    </div>
+  </div>
+
+  <div class="empty pdp-empty" data-pdp-empty hidden>
+    <svg class="icon icon--lg"><use href="#i-bag"/></svg>
+    <h1 class="h2" data-pdp-empty-title>Product not found</h1>
+    <p data-pdp-empty-text>This piece isn't available right now. Browse the collection or message our stylists for help.</p>
+    <div class="pdp-empty__actions">
+      <a class="btn btn--primary" href="shop.html">Browse all</a>
+      <a class="btn btn--wa" data-pdp-empty-wa href="https://wa.me/91XXXXXXXXXX"><svg class="icon"><use href="#i-chat"/></svg> Ask a stylist</a>
+    </div>
+  </div>
+
+  <div class="pdp" data-pdp-wrap hidden>
+    <div class="pdp__left">
+      <div class="gallery">
+        <div class="gallery__thumbs" role="group" aria-label="Product images" data-pdp-thumbs></div>
+        <div class="gallery__main">
+          <img data-pdp-main src="" alt="">
+          <div class="card__tags" data-pdp-tags></div>
+          <button class="gallery__nav gallery__nav--prev" data-gal="-1" aria-label="Previous image"><svg class="icon"><use href="#i-left"/></svg></button>
+          <button class="gallery__nav gallery__nav--next" data-gal="1" aria-label="Next image"><svg class="icon"><use href="#i-right"/></svg></button>
+        </div>
+      </div>
+
+      <div class="acc">
+        <details open>
+          <summary>Details &amp; craftsmanship <svg class="icon"><use href="#i-chev"/></svg></summary>
+          <div><ul data-pdp-details></ul></div>
+        </details>
+        <details>
+          <summary>Customisation options <svg class="icon"><use href="#i-chev"/></svg></summary>
+          <div><p>All at no extra charge: your exact measurements, sleeve length, neckline depth, skirt length for your heel height, lining and extra can-can. Ask your stylist about colour changes.</p></div>
+        </details>
+        <details>
+          <summary>Shipping &amp; delivery <svg class="icon"><use href="#i-chev"/></svg></summary>
+          <div><p>Made-to-order pieces are dispatched in about 3 weeks, with tracked shipping across India. International shipping is available on request.</p><p>Need it urgently? Message us before you order.</p></div>
+        </details>
+        <details>
+          <summary>Care instructions <svg class="icon"><use href="#i-chev"/></svg></summary>
+          <div><ul><li>Dry clean only</li><li>Store folded in a muslin cloth, with embroidery facing inward</li><li>Keep away from perfume and direct sunlight</li></ul></div>
+        </details>
+        <details>
+          <summary>Exchanges &amp; alterations <svg class="icon"><use href="#i-chev"/></svg></summary>
+          <div><p>Custom pieces can't be returned. Any fit issue or manufacturing defect is fixed for free. Please contact us within 48 hours of delivery. <a href="policies.html#exchanges" style="color:var(--maroon);text-decoration:underline">Full policy</a></p></div>
+        </details>
+      </div>
+    </div>
+
+    <div class="buy">
+      <div style="display:grid;gap:10px">
+        <span class="eyebrow" data-pdp-occasion></span>
+        <h1 class="buy__title" data-pdp-name></h1>
+      </div>
+
+      <div class="buy__price" data-pdp-price></div>
+      <p class="emi" data-pdp-emi></p>
+
+      <p style="color:var(--muted)" data-pdp-desc></p>
+
+      <fieldset class="opt" data-pdp-colors-wrap hidden>
+        <legend><span>Colour: <b data-pdp-color-label></b></span></legend>
+        <div class="chips" data-pdp-colors></div>
+      </fieldset>
+
+      <fieldset class="opt">
+        <legend><span class="sr-only">Choose your options</span><span aria-hidden="true"></span> <button type="button" data-open-size>Size guide</button></legend>
+        <div class="chips" data-pdp-sizes></div>
+        <p class="opt__error" data-size-error role="alert"></p>
+        <div class="custom-box" id="custom-box">
+          <p>We'll WhatsApp you a measurement guide after checkout.</p>
+          <label class="chip chip--wide"><input type="checkbox" name="sleeves"><span>Add sleeves (modest option)</span></label>
+          <label class="chip chip--wide"><input type="checkbox" name="lining"><span>Add full lining</span></label>
+        </div>
+      </fieldset>
+
+      <div class="qty-row" id="main-atc">
+        <div class="qty" role="group" aria-label="Quantity">
+          <button type="button" data-qty="-1" aria-label="Decrease quantity"><svg class="icon"><use href="#i-minus"/></svg></button>
+          <label for="qty" class="sr-only">Quantity</label>
+          <input id="qty" type="number" min="1" max="20" value="1" inputmode="numeric">
+          <button type="button" data-qty="1" aria-label="Increase quantity"><svg class="icon"><use href="#i-plus"/></svg></button>
+        </div>
+        <button class="btn btn--primary" data-pdp-add><svg class="icon"><use href="#i-bag"/></svg> Add to bag</button>
+        <button class="icon-btn buy__wish" data-pdp-wish aria-pressed="false" aria-label="Save to wishlist"><svg class="icon"><use href="#i-heart"/></svg></button>
+      </div>
+      <div class="buy__secondary">
+        <a class="btn btn--wa" data-pdp-wa href="#"><svg class="icon"><use href="#i-chat"/></svg> Ask a stylist</a>
+        <a class="btn btn--outline" data-pdp-video href="#"><svg class="icon"><use href="#i-video"/></svg> See it on video</a>
+      </div>
+
+      <form class="date-check" id="date-check" novalidate>
+        <h3><svg class="icon"><use href="#i-calendar"/></svg> Will it arrive in time?</h3>
+        <label for="wedding-date" class="sr-only">Your function date</label>
+        <div class="date-check__row">
+          <input type="date" id="wedding-date" name="wedding-date">
+          <button class="btn btn--outline" type="submit">Check</button>
+        </div>
+        <p class="date-check__out" role="status" aria-live="polite"></p>
+      </form>
+
+      <div class="assure">
+        <div><svg class="icon"><use href="#i-ruler"/></svg>Made to measure</div>
+        <div><svg class="icon"><use href="#i-shield"/></svg>Secure payment</div>
+        <div><svg class="icon"><use href="#i-refresh"/></svg>Free fit fixes</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<section class="section section--blush" data-related-wrap>
+  <div class="container">
+    <div class="section-head section-head--split">
+      <div style="display:grid;gap:16px">
+        <h2 class="x-h2">You may <em>also love</em></h2>
+      </div>
+      <a href="shop.html" class="link-arrow">Shop all <svg class="icon"><use href="#i-arrow"/></svg></a>
+    </div>
+    <div class="grid-products" data-related></div>
+  </div>
+</section>
+
+
+<!-- Size guide modal — replace with your real size chart -->
+<dialog class="modal" id="size-guide" aria-labelledby="size-title">
+  <div class="modal__head">
+    <h2 id="size-title" class="h3">Size guide (inches)</h2>
+    <button class="icon-btn" data-close-size aria-label="Close size guide"><svg class="icon"><use href="#i-x"/></svg></button>
+  </div>
+  <div class="modal__body">
+    <div class="table-wrap">
+      <table class="size-table">
+        <thead><tr><th>Size</th><th>Bust</th><th>Waist</th><th>Hip</th><th>Skirt length</th></tr></thead>
+        <tbody>
+          <tr><td>S</td><td>34</td><td>28</td><td>38</td><td>42</td></tr>
+          <tr><td>M</td><td>36</td><td>30</td><td>40</td><td>42</td></tr>
+          <tr><td>L</td><td>38</td><td>32</td><td>42</td><td>42</td></tr>
+          <tr><td>XL</td><td>40</td><td>34</td><td>44</td><td>42</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p style="font-size:var(--fs-sm);color:var(--muted)">Between sizes, or want it perfect? Choose <strong>Custom</strong> and we'll make it to your exact measurements for free. <a href="policies.html#size-guide" style="color:var(--maroon);text-decoration:underline">How to measure</a></p>
+  </div>
+</dialog>
+
+<div class="sticky-atc" data-sticky-wrap hidden>
+  <img data-sticky-img src="" alt="">
+  <div><span data-sticky-name></span><strong data-sticky-price></strong></div>
+  <button class="btn btn--primary" data-sticky-add>Add to bag</button>
+</div>

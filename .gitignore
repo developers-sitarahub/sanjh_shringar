@@ -1,0 +1,12 @@
+# Dependencies & local tooling
+node_modules/
+.wix/
+*.log
+
+# Build artefacts (rebuilt from src/ by tools/build.py)
+wix-upload/*.zip
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.vscode/

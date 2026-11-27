@@ -1,0 +1,80 @@
+TITLE: Shop | Sanjh Shringar
+DESC: Shop bridal lehengas, bridesmaid outfits, drape sarees, Indo-western sets and designer blouses, all made to your measurements.
+BODY: shop-page
+---
+<section class="shop-hero">
+  <div class="shop-hero__media media"><img data-shop-banner data-cms-img="shop.banner" alt="" hidden></div>
+  <div class="container shop-hero__copy">
+    <nav class="crumbs crumbs--light" aria-label="Breadcrumb"><ol><li><a href="index.html">Home</a></li><li aria-current="page" data-shop-crumb></li></ol></nav>
+    <span class="eyebrow" data-shop-eyebrow></span>
+    <h1 class="display" data-shop-title></h1>
+    <p class="lead" data-shop-intro></p>
+  </div>
+</section>
+
+<div class="container">
+  <div class="collection-tabs" role="tablist" aria-label="Collections" data-shop-tabs></div>
+
+  <div class="shop">
+    <aside class="filters" id="filters" aria-label="Filters">
+      <div class="filters__head">
+        <h2 class="h3">Refine</h2>
+        <button class="icon-btn filters__close" data-close-filters aria-label="Close filters"><svg class="icon"><use href="#i-x"/></svg></button>
+      </div>
+      <fieldset class="filter-group">
+        <legend>Size</legend>
+        <div class="chips" data-filter-sizes></div>
+      </fieldset>
+      <fieldset class="filter-group" data-filter-price>
+        <legend>Price</legend>
+        <label class="check"><input type="radio" name="price" value="all" checked> <span>All prices</span></label>
+        <label class="check"><input type="radio" name="price" value="0-3000"> <span>Under ₹3,000</span></label>
+        <label class="check"><input type="radio" name="price" value="3000-10000"> <span>₹3,000 – ₹10,000</span></label>
+        <label class="check"><input type="radio" name="price" value="10000-999999"> <span>₹10,000 &amp; above</span></label>
+      </fieldset>
+      <fieldset class="filter-group">
+        <legend>Offers</legend>
+        <label class="check"><input type="checkbox" name="sale" value="1"> <span>On sale</span></label>
+      </fieldset>
+      <button class="btn btn--outline btn--block" type="button" data-clear-filters>Clear filters</button>
+      <div class="filters__help">
+        <svg class="icon"><use href="#i-video"/></svg>
+        <p><strong>Can't decide?</strong> See any piece on video.</p>
+        <a class="link-arrow" href="contact.html#book">Book a call <svg class="icon"><use href="#i-arrow"/></svg></a>
+      </div>
+    </aside>
+
+    <div class="shop__main">
+      <div class="toolbar">
+        <button class="btn btn--outline toolbar__filter" type="button" data-open-filters><svg class="icon"><use href="#i-filter"/></svg> Filters</button>
+        <p class="toolbar__count" data-shop-count aria-live="polite"></p>
+        <label class="toolbar__sort">
+          <span class="sr-only">Sort by</span>
+          <select data-shop-sort>
+            <option value="featured">Featured</option>
+            <option value="price-asc">Price: low to high</option>
+            <option value="price-desc">Price: high to low</option>
+            <option value="discount">Biggest savings</option>
+            <option value="name">Name A–Z</option>
+          </select>
+        </label>
+      </div>
+      <div class="grid-products grid-products--3" data-shop-grid></div>
+      <div class="empty" data-shop-empty hidden>
+        <svg class="icon icon--lg"><use href="#i-heart"/></svg>
+        <h2 class="h3" data-empty-title>Nothing here yet</h2>
+        <p data-empty-text>Try removing a filter, or let a stylist suggest something for you.</p>
+        <a class="btn btn--primary" href="shop.html">Browse all</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<section class="x-strip x-strip--gap" aria-label="Our promises">
+  <ul class="container x-strip__list">
+    <li><svg class="icon"><use href="#i-ruler"/></svg>Made to measure</li>
+    <li><svg class="icon"><use href="#i-video"/></svg>Video styling</li>
+    <li><svg class="icon"><use href="#i-refresh"/></svg>Free fit fixes</li>
+    <li><svg class="icon"><use href="#i-truck"/></svg>Pan-India delivery</li>
+  </ul>
+</section>

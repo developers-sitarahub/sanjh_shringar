@@ -1,0 +1,17 @@
+{
+  "name": "sanjh-shringar-site",
+  "private": true,
+  "description": "Sanjh Shringar storefront: static frontend on Wix Headless (Wix Stores + CMS backend).",
+  "scripts": {
+    "build": "python tools/build.py",
+    "test": "node tools/tests/wix-mock.test.js",
+    "preview": "npm run build && wix preview",
+    "release": "npm run build && npm test && wix release"
+  },
+  "devDependencies": {
+    "@wix/cli": "1.2.13"
+  },
+  "engines": {
+    "node": ">=24.22.1"
+  }
+}

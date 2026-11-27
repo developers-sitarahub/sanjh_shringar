@@ -1,0 +1,163 @@
+TITLE: Sanjh Shringar | Bridal Lehengas, Bridesmaid & Modest Ethnic Wear
+DESC: Bridal lehengas, bridesmaid outfits and modest ethnic wear, made to your measurements. Free video-call styling.
+BODY: home
+---
+<!--
+  WIX-EDITABLE HOMEPAGE
+  Everything below shows the built-in defaults. When the site is connected to Wix:
+   • data-cms="key"        text from the CMS collection "HomepageContent" (Title = key, Text field)
+                           *word* = italic, | = line break
+   • data-cms-href="key"   link from that row's Link field
+   • data-cms-img="key"    photo from that row's Image field
+   • data-cms-section="x"  hidden when the row "x.show" has Text = no
+   • data-home-hero        dress from the Wix Stores category "Homepage Hero"
+   • data-home-list="Cat"  products from that Wix Stores category
+   • data-price-of="slug"  live price of that product
+-->
+<!-- ============ HERO (full-bleed) ============ -->
+<section class="x-hero" data-home-hero="Homepage Hero" data-cms-section="hero">
+  <div class="x-hero__media">
+    <img alt="" fetchpriority="high" data-hero-img data-cms-img="hero.image" hidden>
+  </div>
+  <div class="container x-hero__content">
+    <p class="x-kicker" data-cms="hero.kicker"></p>
+    <h1 class="x-display" data-cms="hero.title"></h1>
+    <div class="x-hero__actions">
+      <a href="shop.html?c=bridal" class="btn btn--light" data-cms="hero.button1" data-cms-href="hero.button1"></a>
+      <a href="contact.html#book" class="x-link x-link--light" data-cms-href="hero.button2"><span data-cms="hero.button2"></span> <svg class="icon"><use href="#i-arrow"/></svg></a>
+    </div>
+  </div>
+  <a href="product.html" class="x-hero__tag" data-hero-link hidden>
+    <span data-hero-name></span><strong data-hero-price></strong>
+  </a>
+</section>
+
+<!-- ============ PROMISE STRIP ============ -->
+<section class="x-strip" aria-label="Our promises" data-cms-section="promise">
+  <ul class="container x-strip__list">
+    <li><svg class="icon"><use href="#i-ruler"/></svg><span data-cms="promise.1"></span></li>
+    <li><svg class="icon"><use href="#i-video"/></svg><span data-cms="promise.2"></span></li>
+    <li><svg class="icon"><use href="#i-refresh"/></svg><span data-cms="promise.3"></span></li>
+    <li><svg class="icon"><use href="#i-truck"/></svg><span data-cms="promise.4"></span></li>
+  </ul>
+</section>
+
+<!-- ============ CATEGORY TILES ============ -->
+<section class="x-section x-section--tiles" data-cms-section="tiles">
+  <div class="container">
+    <div class="x-tiles">
+      <a href="shop.html?c=bridal" class="x-tile x-tile--lg reveal" data-cms-href="tile.1">
+        <div class="media"><img alt="" loading="lazy" data-cms-img="tile.1" hidden></div>
+        <div class="x-tile__label"><span>01</span><h2 data-cms="tile.1"></h2></div>
+      </a>
+      <a href="shop.html?c=bridesmaids" class="x-tile reveal" data-delay="80" data-cms-href="tile.2">
+        <div class="media"><img alt="" loading="lazy" data-cms-img="tile.2" hidden></div>
+        <div class="x-tile__label"><span>02</span><h2 data-cms="tile.2"></h2></div>
+      </a>
+      <a href="shop.html?c=modest" class="x-tile reveal" data-delay="160" data-cms-href="tile.3">
+        <div class="media"><img alt="" loading="lazy" data-cms-img="tile.3" hidden></div>
+        <div class="x-tile__label"><span>03</span><h2 data-cms="tile.3"></h2></div>
+      </a>
+      <a href="shop.html?c=indo-western" class="x-tile reveal" data-delay="80" data-cms-href="tile.4">
+        <div class="media"><img alt="" loading="lazy" data-cms-img="tile.4" hidden></div>
+        <div class="x-tile__label"><span>04</span><h2 data-cms="tile.4"></h2></div>
+      </a>
+      <a href="shop.html?c=under-3k" class="x-tile reveal" data-delay="160" data-cms-href="tile.5">
+        <div class="media"><img alt="" loading="lazy" data-cms-img="tile.5" hidden></div>
+        <div class="x-tile__label"><span>05</span><h2 data-cms="tile.5"></h2></div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PRODUCT RAIL: WEDDING EDIT ============ -->
+<section class="x-section x-section--tight x-section--rail" data-cms-section="wedding">
+  <div class="container">
+    <div class="x-head">
+      <h2 class="x-h2" data-cms="wedding.title"></h2>
+      <div class="x-head__ctrl">
+        <a href="shop.html?c=bridal" class="x-link" data-cms-href="wedding.link"><span data-cms="wedding.link"></span> <svg class="icon"><use href="#i-arrow"/></svg></a>
+        <button class="rail-btn" data-rail="bridal-rail" data-dir="-1" aria-label="Scroll left"><svg class="icon"><use href="#i-left"/></svg></button>
+        <button class="rail-btn" data-rail="bridal-rail" data-dir="1" aria-label="Scroll right"><svg class="icon"><use href="#i-right"/></svg></button>
+      </div>
+    </div>
+  </div>
+  <div class="rail" id="bridal-rail" data-grid data-collection="bridal" data-category="Homepage Wedding Edit" data-limit="8"></div>
+</section>
+
+<!-- ============ STORY: SANJH ============ -->
+<section class="x-story" data-cms-section="story">
+  <div class="x-story__img media"><img alt="" loading="lazy" data-cms-img="story.image" hidden></div>
+  <div class="x-story__copy reveal">
+    <p class="x-giant">Sanjh<span class="hindi" lang="hi">साँझ</span></p>
+    <p class="x-story__line" data-cms="story.line"></p>
+    <a href="about.html" class="x-link x-link--light" data-cms-href="story.link"><span data-cms="story.link"></span> <svg class="icon"><use href="#i-arrow"/></svg></a>
+  </div>
+</section>
+
+<!-- ============ BRIDAL CIRCLE ============ -->
+<section class="x-section" data-cms-section="circle">
+  <div class="container">
+    <div class="x-head x-head--center">
+      <h2 class="x-h2" data-cms="circle.title"></h2>
+    </div>
+    <div class="x-circle" data-home-list="Homepage Bridal Circle" data-tpl="circle" data-limit="5"></div>
+    <div class="x-center">
+      <a href="shop.html?c=bridesmaids" class="btn btn--primary" data-cms="circle.button1" data-cms-href="circle.button1"></a>
+      <a href="contact.html#group" class="x-link" data-cms-href="circle.button2"><span data-cms="circle.button2"></span> <svg class="icon"><use href="#i-arrow"/></svg></a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ LOOKBOOK ============ -->
+<section class="x-section x-section--dark" data-cms-section="lookbook">
+  <div class="container">
+    <div class="x-head">
+      <h2 class="x-h2" data-cms="lookbook.title"></h2>
+      <a href="shop.html" class="x-link x-link--light" data-cms-href="lookbook.link"><span data-cms="lookbook.link"></span> <svg class="icon"><use href="#i-arrow"/></svg></a>
+    </div>
+    <div class="lookbook" data-home-list="Homepage Lookbook" data-tpl="lookbook" data-limit="5"></div>
+  </div>
+</section>
+
+<!-- ============ HOW IT WORKS ============ -->
+<section class="x-section" data-cms-section="steps">
+  <div class="container">
+    <div class="x-head x-head--center"><h2 class="x-h2" data-cms="steps.title"></h2></div>
+    <ol class="x-steps">
+      <li class="reveal"><span class="x-steps__n">1</span><svg class="icon"><use href="#i-video"/></svg><h3 data-cms="step.1.title"></h3><p data-cms="step.1.text"></p></li>
+      <li class="reveal" data-delay="80"><span class="x-steps__n">2</span><svg class="icon"><use href="#i-ruler"/></svg><h3 data-cms="step.2.title"></h3><p data-cms="step.2.text"></p></li>
+      <li class="reveal" data-delay="160"><span class="x-steps__n">3</span><svg class="icon"><use href="#i-gift"/></svg><h3 data-cms="step.3.title"></h3><p data-cms="step.3.text"></p></li>
+    </ol>
+    <div class="x-center"><a href="contact.html#book" class="btn btn--primary" data-cms="steps.button" data-cms-href="steps.button"></a></div>
+  </div>
+</section>
+
+<!-- ============ QUOTE ============ -->
+<!-- Sample review. Shown only when the Wix CMS row "quote.show" has Text = yes; put a real review in "quote.text". -->
+<section class="x-quote" data-cms-section="quote" data-default-hidden hidden>
+  <div class="x-quote__img media"><img alt="" loading="lazy" data-cms-img="quote.image" hidden></div>
+  <figure class="x-quote__body reveal">
+    <div class="stars" aria-label="5 out of 5 stars"><svg class="icon icon--fill"><use href="#i-star"/></svg><svg class="icon icon--fill"><use href="#i-star"/></svg><svg class="icon icon--fill"><use href="#i-star"/></svg><svg class="icon icon--fill"><use href="#i-star"/></svg><svg class="icon icon--fill"><use href="#i-star"/></svg></div>
+    <blockquote data-cms="quote.text"></blockquote>
+    <figcaption data-cms="quote.caption"></figcaption>
+  </figure>
+</section>
+
+<!-- ============ INSTAGRAM ============ -->
+<section class="x-section x-section--tight" data-cms-section="insta">
+  <div class="container">
+    <div class="x-head">
+      <h2 class="x-h2" data-cms="insta.title"></h2>
+      <a href="#" class="x-link" data-cms-href="insta.follow"><svg class="icon"><use href="#i-insta"/></svg> <span data-cms="insta.follow"></span></a>
+    </div>
+  </div>
+  <div class="insta insta--bleed" data-brides-row>
+    <a href="#" aria-label="Instagram post" data-cms-href="insta.1"><img alt="" loading="lazy" data-cms-img="insta.1" hidden></a>
+    <a href="#" aria-label="Instagram post" data-cms-href="insta.2"><img alt="" loading="lazy" data-cms-img="insta.2" hidden></a>
+    <a href="#" aria-label="Instagram post" data-cms-href="insta.3"><img alt="" loading="lazy" data-cms-img="insta.3" hidden></a>
+    <a href="#" aria-label="Instagram post" data-cms-href="insta.4"><img alt="" loading="lazy" data-cms-img="insta.4" hidden></a>
+    <a href="#" aria-label="Instagram post" data-cms-href="insta.5"><img alt="" loading="lazy" data-cms-img="insta.5" hidden></a>
+    <a href="#" aria-label="Instagram post" data-cms-href="insta.6"><img alt="" loading="lazy" data-cms-img="insta.6" hidden></a>
+  </div>
+</section>

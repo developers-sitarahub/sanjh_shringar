@@ -1,0 +1,110 @@
+
+<a class="skip-link" href="#main">Skip to content</a>
+
+<!-- ============ ANNOUNCEMENT BAR ============ -->
+<div class="announce" role="region" aria-label="Store announcements">
+  <p><span data-cms="announcement.text">Free custom sizing on every outfit</span> · <a href="contact.html#book" data-cms="announcement.link" data-cms-href="announcement.link">Book a styling call</a></p>
+</div>
+
+<!-- ============ HEADER ============ -->
+<header class="header">
+  <div class="container header__bar">
+    <div class="header__left">
+      <button class="icon-btn menu-toggle" data-open-drawer aria-label="Open menu" aria-controls="drawer"><svg class="icon"><use href="#i-menu"/></svg></button>
+      <button class="icon-btn" data-open-search aria-label="Search products"><svg class="icon"><use href="#i-search"/></svg></button>
+      <a class="icon-btn hide-sm" href="https://wa.me/91XXXXXXXXXX" aria-label="Chat with a stylist on WhatsApp"><svg class="icon"><use href="#i-chat"/></svg></a>
+    </div>
+    <a href="index.html" class="logo" aria-label="Sanjh Shringar home">
+      <img class="logo__img logo__img--dark" src="assets/logo.png" alt="Sanjh Shringar">
+      <img class="logo__img logo__img--light" src="assets/logo-white.png" alt="" aria-hidden="true">
+    </a>
+    <div class="header__right">
+      <a class="icon-btn" href="shop.html?c=wishlist" aria-label="Wishlist"><svg class="icon"><use href="#i-heart"/></svg><span class="badge-count" data-wish-count hidden>0</span></a>
+      <button class="icon-btn" data-open-cart aria-label="Open shopping bag" aria-controls="cart"><svg class="icon"><use href="#i-bag"/></svg><span class="badge-count" data-bag-count hidden>0</span></button>
+    </div>
+  </div>
+  <nav class="nav" aria-label="Main">
+    <ul class="container nav__list">
+      <li class="nav__item nav__item--drop">
+        <a class="nav__link" href="shop.html" data-nav="collection">Collection <svg class="icon nav__chev" aria-hidden="true"><use href="#i-chev"/></svg></a>
+        <div class="nav__drop" role="menu">
+          <a href="shop.html">All Collections</a>
+          <a href="shop.html?c=bridal">The Bride</a>
+          <a href="shop.html?c=bridesmaids">Bridesmaids</a>
+          <a href="shop.html?c=modest">Modest Edit</a>
+          <a href="shop.html?c=lehengas">Lehengas</a>
+          <a href="shop.html?c=sarees">Drape Sarees</a>
+          <a href="shop.html?c=indo-western">Indo-Western</a>
+          <a href="shop.html?c=blouses">Designer Blouses</a>
+        </div>
+      </li>
+      <li><a class="nav__link" href="shop.html?c=under-3k" data-nav="under-3k">Under ₹3k</a></li>
+      <li><a class="nav__link" href="about.html" data-nav="about">Our Story</a></li>
+      <li><a class="nav__link" href="contact.html" data-nav="contact">Contact</a></li>
+    </ul>
+  </nav>
+</header>
+
+<!-- Mobile menu drawer -->
+<div class="drawer" id="drawer" aria-hidden="true">
+  <div class="drawer__scrim" data-close-drawer></div>
+  <div class="drawer__panel" role="dialog" aria-modal="true" aria-label="Menu">
+    <div class="drawer__head">
+      <img class="logo__img logo__img--drawer" src="assets/logo.png" alt="Sanjh Shringar">
+      <button class="icon-btn" data-close-drawer aria-label="Close menu"><svg class="icon"><use href="#i-x"/></svg></button>
+    </div>
+    <nav class="drawer__nav" aria-label="Mobile">
+      <a href="shop.html?c=bridal">The Bride <small>Wedding</small></a>
+      <a href="shop.html?c=bridesmaids">Bridesmaids</a>
+      <a href="shop.html?c=modest">Modest Edit</a>
+      <a href="shop.html?c=lehengas">Lehengas</a>
+      <a href="shop.html?c=indo-western">Indo-Western</a>
+      <a href="shop.html?c=sarees">Drape Sarees</a>
+      <a href="shop.html?c=blouses">Designer Blouses</a>
+      <a href="shop.html?c=under-3k">Under ₹3k <small>Sale</small></a>
+      <a href="about.html">Our Story</a>
+      <a href="contact.html">Contact &amp; Styling Call</a>
+    </nav>
+    <div class="drawer__foot">
+      <a class="btn btn--wa btn--block" href="https://wa.me/91XXXXXXXXXX"><svg class="icon"><use href="#i-chat"/></svg> Talk to a stylist</a>
+      <a class="btn btn--outline btn--block" href="shop.html?c=wishlist"><svg class="icon"><use href="#i-heart"/></svg> My wishlist</a>
+    </div>
+  </div>
+</div>
+
+<!-- Cart drawer -->
+<div class="drawer drawer--right" id="cart" aria-hidden="true">
+  <div class="drawer__scrim" data-close-cart></div>
+  <div class="drawer__panel" role="dialog" aria-modal="true" aria-labelledby="cart-title">
+    <div class="drawer__head">
+      <h2 id="cart-title" class="h3">Your bag</h2>
+      <button class="icon-btn" data-close-cart aria-label="Close bag"><svg class="icon"><use href="#i-x"/></svg></button>
+    </div>
+    <div class="cart__body" data-cart-body></div>
+    <div class="cart__foot" data-cart-foot></div>
+  </div>
+</div>
+
+<!-- Search overlay -->
+<div class="search" id="search" aria-hidden="true">
+  <div class="search__scrim" data-close-search></div>
+  <div class="search__panel" role="dialog" aria-modal="true" aria-label="Search">
+    <div class="container">
+      <form class="search__form" role="search" onsubmit="return false">
+        <svg class="icon"><use href="#i-search"/></svg>
+        <label for="search-input" class="sr-only">Search products</label>
+        <input id="search-input" type="search" placeholder="Search lehengas, sarees, colours…" autocomplete="off">
+        <button type="button" class="icon-btn" data-close-search aria-label="Close search"><svg class="icon"><use href="#i-x"/></svg></button>
+      </form>
+      <div class="search__chips" aria-label="Popular searches">
+        <span>Popular:</span>
+        <button type="button" data-q="bridal">Bridal</button>
+        <button type="button" data-q="maroon">Maroon</button>
+        <button type="button" data-q="corset">Corset</button>
+        <button type="button" data-q="saree">Saree</button>
+        <button type="button" data-q="blouse">Blouse</button>
+      </div>
+      <div class="search__results" data-search-results aria-live="polite"></div>
+    </div>
+  </div>
+</div>
