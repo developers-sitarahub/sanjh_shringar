@@ -10,7 +10,7 @@ The storefront is a static site in `site/`, built from `src/` by `tools/build.py
 
 ## Automatic: push to GitHub
 
-Every push to `main` that changes `src/`, `site/`, `tools/` or the config runs `.github/workflows/deploy-wix.yml`. The workflow:
+Every push to `main` runs `.github/workflows/deploy-wix.yml`. The workflow:
 
 1. Builds the pages.
 2. Runs the connector tests. A failing test stops the deploy.
