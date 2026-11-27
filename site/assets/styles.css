@@ -1319,3 +1319,103 @@ button[data-checkout][disabled] { opacity: .7; cursor: progress; }
 .insta--few { grid-template-columns: repeat(var(--n), minmax(0, 300px)); justify-content: center; gap: 8px; }
 .insta--few a { border-radius: var(--radius-sm); }
 @media (max-width: 760px) { .insta--few { grid-template-columns: repeat(min(var(--n), 3), 1fr); padding-inline: var(--gutter); } }
+
+/* ==========================================================================
+   RESPONSIVE HARDENING
+   Grid/flex children default to min-width:auto, so one wide child (a select,
+   a date input, a long product name) can push a whole column off small
+   screens. Let layout children shrink and make media/controls fit.
+   ========================================================================== */
+html, body { max-width: 100%; }
+body { overflow-x: clip; }                       /* last-resort guard; clip keeps position:sticky working */
+img, svg, video, iframe { max-width: 100%; }
+h1, h2, h3, h4, p, li, dd, dt, figcaption, blockquote, .card__name, .cart__name { overflow-wrap: break-word; }
+
+.shop > *, .shop__main > *, .grid-products > *, .pdp > *, .pdp__left > *, .pdp__right > *,
+.booking > *, .form__grid > *, .x-tiles > *, .x-story > *, .x-quote > *, .x-words > *,
+.x-steps > *, .x-circle > *, .footer__grid > *, .editorial__grid > *, .brides > *,
+.toolbar > *, .x-head > *, .x-join__inner > *, .lookbook > * { min-width: 0; }
+
+/* Form controls always fit their column */
+.form input, .form select, .form textarea, .date-check input, .x-join__form .input { width: 100%; max-width: 100%; min-width: 0; }
+.date-check form, .date-check__row { min-width: 0; }
+
+/* Shop toolbar: count + filter button + sort wrap instead of overflowing */
+.toolbar { flex-wrap: wrap; row-gap: 10px; }
+.toolbar__sort { min-width: 0; max-width: 100%; }
+.toolbar__sort select { max-width: 100%; }
+
+/* Small phones */
+@media (max-width: 400px) {
+  :root { --gutter: 16px; }
+  .grid-products, .grid-products--3 { gap: 12px; }
+  .card__name { font-size: 1rem; }
+  .x-h2 { font-size: clamp(1.9rem, 1.2rem + 3.6vw, 2.4rem); }
+  .x-display { font-size: clamp(2.4rem, 1.4rem + 7vw, 3.2rem); }
+  .btn { padding-inline: 18px; letter-spacing: .1em; }
+  .chips .chip--wide { flex: 1 1 100%; }
+}
+@media (max-width: 480px) {
+  .x-join__form { min-width: 0; width: 100%; flex: 1 1 100%; display: grid; grid-template-columns: 1fr; }
+  .x-join__form .input, .x-join__form .btn { width: 100%; min-width: 0; }
+}
+/* Fieldsets default to min-width:min-content, which pushed the product buy column off-screen */
+fieldset { min-width: 0; max-width: 100%; }
+.pdp > div, .opt, .opt-group, .chips, .buy__row, .buy__actions { min-width: 0; max-width: 100%; }
+/* Product buy column: its auto-sized grid track grew to fit the two side-by-side buttons */
+.buy { grid-template-columns: minmax(0, 1fr); }
+.buy > * { min-width: 0; }
+.buy__secondary { grid-template-columns: repeat(auto-fit, minmax(min(100%, 190px), 1fr)); }
+.buy__secondary .btn, .qty-row .btn { white-space: normal; text-align: center; line-height: 1.2; }
+.qty-row { flex-wrap: wrap; }
+.qty-row .btn--primary { min-width: 0; flex: 1 1 150px; }
+.date-check__row { flex-wrap: wrap; }
+.date-check input[type="date"] { flex: 1 1 170px; }
+.assure { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.chip--wide span { white-space: normal; text-align: center; }
+
+/* ---------- Breakpoint refinements (phone / tablet / small laptop) ---------- */
+/* Category tile names break only between words; smaller on narrow tiles */
+.x-tile__label h2 { overflow-wrap: normal; word-break: normal; hyphens: manual; }
+@media (max-width: 400px) { .x-tile__label h2 { font-size: 1.15rem; } .x-tile--lg .x-tile__label h2 { font-size: 1.9rem; } }
+/* Tablet: the big tile becomes a wide banner instead of a 4:5 wall */
+@media (min-width: 561px) and (max-width: 860px) { .x-tile--lg { aspect-ratio: 16 / 10; } }
+
+/* Promise strip: one row of four on tablets, 2×2 on phones */
+@media (min-width: 761px) and (max-width: 1100px) {
+  .x-strip__list { display: grid; grid-template-columns: repeat(4, auto); justify-content: space-between; gap: 12px; }
+  .x-strip__list li { letter-spacing: .12em; font-size: 11px; }
+}
+
+/* "You may also love" (4 items): 4 across on laptops, 2×2 below, never 3 + 1 */
+[data-related] { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+@media (max-width: 900px) { [data-related] { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+
+/* Product page on small laptops: give the buy column room so "Add to bag" stays on one line */
+@media (min-width: 961px) and (max-width: 1180px) { .pdp { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); } }
+.qty-row .btn--primary { flex: 1 1 120px; }
+@media (max-width: 480px) { .date-check input[type="date"] { flex: 0 0 auto; width: 100%; } }
+/* Phones/tablets: the product page has its own "Ask a stylist" button; the floating chat bubble only covered content */
+@media (max-width: 960px) { body.pdp-page .concierge { display: none; } }
+
+/* Footer on small laptops: brand on its own row, three link columns below (no mid-word wrapping) */
+@media (min-width: 901px) and (max-width: 1180px) {
+  .footer__grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .footer__brand { grid-column: 1 / -1; }
+}
+.footer a[href^="mailto:"] { overflow-wrap: anywhere; }
+/* Product page has its own "Ask a stylist" button, so the floating chat bubble is hidden there at every size */
+body.pdp-page .concierge { display: none; }
+.buy__secondary .btn { padding-inline: 14px; letter-spacing: .08em; }
+/* Phones: quantity | Add to bag | heart on one tidy row */
+@media (max-width: 480px) {
+  .qty-row { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; align-items: center; }
+  .qty-row .btn--primary { white-space: nowrap; padding-inline: 12px; letter-spacing: .08em; }
+  .qty input { width: 32px; }
+}
+@media (max-width: 400px) { .qty-row .btn--primary .icon { display: none; } }
+@media (max-width: 350px) {
+  .qty-row { grid-template-columns: 1fr auto; }
+  .qty-row .qty { justify-self: start; }
+  .qty-row .btn--primary { grid-column: 1 / -1; order: 3; }
+}
