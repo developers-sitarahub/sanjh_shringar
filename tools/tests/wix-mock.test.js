@@ -48,7 +48,7 @@ global.fetch = async (url, opts = {}) => {
     return ok({ cart });
   }
   if (u.pathname === "/wix-data/v2/items/query" && body.dataCollectionId === "Brides") return ok({ dataItems: [
-    { data: { title: "Riya", photo: "wix:image://v1/r1~mv2.jpg/r.jpg", caption: "Maroon Floral", sortOrder: 2, _createdDate: { $date: "2026-01-01T00:00:00Z" } } },
+    { data: { title: "Riya", photo: "wix:image://v1/r1~mv2.jpg/r.jpg", caption: "Maroon Floral", sortOrder: 2, product: "p1", review: "Fit like a dream", rating: 5, _createdDate: { $date: "2026-01-01T00:00:00Z" } } },
     { data: { title: "Aisha", photo: "wix:image://v1/a1~mv2.jpg/a.jpg", showOnHomepage: true, outfitLink: { url: "product.html?p=x" }, sortOrder: 1 } },
     { data: { title: "No photo yet" } },
     { data: { title: "Meera", photo: "wix:image://v1/m1~mv2.jpg/m.jpg", _createdDate: { $date: "2026-05-01T00:00:00Z" } } }
@@ -78,6 +78,7 @@ const assert = (c, m) => { if (!c) { console.error("FAIL:", m); process.exitCode
   assert(brides.map(b => b.name).join() === "Aisha,Riya,Meera", "brides sorted by Sort Order, unsorted last; photo-less skipped");
   assert(brides[0].home === true && brides[1].home === false && brides[0].link === "product.html?p=x", "bride homepage flag and outfit link read");
   assert(brides[1].photo.includes("static.wixstatic.com/media/r1~mv2.jpg") && brides[1].caption === "Maroon Floral", "bride photo URL and caption built");
+  assert(brides[1].productId === "p1" && brides[1].review === "Fit like a dream" && brides[1].rating === 5 && brides[0].rating === 0, "bride outfit product, review and stars read");
   assert((await W.loadBrides("")).length === 0, "no bride collection configured -> empty gallery");
   let c = await W.getCart();
   assert(c.lines.length === 0, "empty cart when Wix returns 404");

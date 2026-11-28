@@ -251,7 +251,8 @@
   }
 
   /* ---------- Bride gallery (CMS collection of customer photos, not products) ----------
-     Fields: Title (bride's name), Photo (image), Caption, Outfit Link, Show on Homepage, Sort Order. */
+     Fields: Title (bride's name), Photo (image), Caption, Outfit she wore (reference to a
+     Wix Stores product), Outfit Link (fallback), Her review, Stars (1-5), Show on Homepage, Sort Order. */
   function loadBrides(collectionId) {
     if (!collectionId) return Promise.resolve([]);
     return req("/wix-data/v2/items/query", { body: { dataCollectionId: collectionId, query: { paging: { limit: 200 } } } })
@@ -264,12 +265,18 @@
           if (link && typeof link === "object") link = link.url || link.href || "";
           var home = f.showonhomepage != null ? f.showonhomepage : (f.homepage != null ? f.homepage : f.featured);
           var order = Number(f.sortorder != null ? f.sortorder : f.order);
+          var prod = f.product || f.outfitproduct || "";
+          if (prod && typeof prod === "object") prod = prod._id || prod.id || "";
+          var stars = Math.round(Number(f.rating || f.stars));
           return {
             name: String(f.title || f.name || "").trim(),
             caption: String(f.caption || f.text || "").trim(),
             photo: img(f.photo || f.image, 1000, 1250),
             thumb: img(f.photo || f.image, 600, 600),
             link: String(link || ""),
+            productId: String(prod || ""),
+            review: String(f.review || "").trim(),
+            rating: stars >= 1 && stars <= 5 ? stars : 0,
             home: home === true || /^(yes|true|1)$/i.test(String(home || "")),
             order: isNaN(order) || f.sortorder === "" ? Infinity : order,
             date: dateOf(f.createddate || it.createdDate)

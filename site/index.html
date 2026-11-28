@@ -178,6 +178,7 @@
    • data-cms-href="key"   link from that row's Link field
    • data-cms-img="key"    photo from that row's Image field
    • data-cms-section="x"  hidden when the row "x.show" has Text = no
+                           "x.order" (1, 2, 3…) sets the section order, "x.count" how many items it shows
    • data-home-hero        dress from the Wix Stores category "Homepage Hero"
    • data-home-list="Cat"  products from that Wix Stores category
    • data-price-of="slug"  live price of that product
@@ -302,7 +303,8 @@
 </section>
 
 <!-- ============ QUOTE ============ -->
-<!-- Sample review. Shown only when the Wix CMS row "quote.show" has Text = yes; put a real review in "quote.text". -->
+<!-- Customer reviews: filled from the "Brides" CMS entries that have "Her review" (rotating).
+     quote.show = no hides it; = yes also allows the quote.text row when there are no reviews. -->
 <section class="x-quote" data-cms-section="quote" data-default-hidden hidden>
   <div class="x-quote__img media"><img alt="" loading="lazy" data-cms-img="quote.image" hidden></div>
   <figure class="x-quote__body reveal">

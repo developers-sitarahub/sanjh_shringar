@@ -166,8 +166,16 @@
       })
     : Promise.resolve([]);
 
-  source.then(boot);
-  Promise.all([source, contentP, bridesP]).then(function (r) { applySiteContent(r[0], r[1]); applyBrides(r[2]); });
+  Promise.all([source, contentP]).then(function (r) { boot(r[0], r[1]); });
+  Promise.all([source, contentP, bridesP]).then(function (r) { applySiteContent(r[0], r[1]); applyBrides(r[2], r[0], r[1]); });
+
+  // "<section>.count" in Homepage Content: how many items a homepage section shows
+  function countFor(el, C) {
+    var sec = el.closest("[data-cms-section]");
+    var row = sec && C && C[sec.getAttribute("data-cms-section") + ".count"];
+    var n = row ? parseInt(row.text, 10) : NaN;
+    return n > 0 ? Math.min(n, 24) : (+el.getAttribute("data-limit") || 4);
+  }
 
   /* ==========================================================================
      WIX-MANAGED CONTENT  (see the note at the top of src/pages/index.html)
@@ -187,6 +195,17 @@
   function applySiteContent(P, C) {
     C = C || {};
     var get = function (k, f) { return C[k] && C[k][f] ? C[k][f] : ""; };
+
+    // Section order ("<name>.order" = 1, 2, 3 ...); sections without a number keep their place
+    var secs = $$("main > [data-cms-section]");
+    if (secs.length > 1 && secs.some(function (s) { return get(s.getAttribute("data-cms-section") + ".order", "text"); })) {
+      var parent = secs[0].parentNode, anchor = secs[secs.length - 1].nextSibling;
+      secs.map(function (s, i) {
+        var o = parseFloat(get(s.getAttribute("data-cms-section") + ".order", "text"));
+        return { el: s, k: isNaN(o) ? i + 1 : o, i: i };
+      }).sort(function (a, b) { return a.k - b.k || a.i - b.i; })
+        .forEach(function (x) { parent.insertBefore(x.el, anchor); });
+    }
 
     // Show / hide whole sections ("<name>.show" = yes / no)
     $$("[data-cms-section]").forEach(function (s) {
@@ -248,7 +267,7 @@
     $$("[data-home-list]").forEach(function (box) {
       var list = P.filter(function (p) { return inCat(p, box.getAttribute("data-home-list")); });
       if (!list.length) list = P.filter(function (p) { return inColl(p, box.getAttribute("data-home-fallback")); });
-      list = list.slice(0, +box.getAttribute("data-limit") || 5);
+      list = list.slice(0, countFor(box, C));
       if (!list.length) { hideSection(box); return; }
       var tpl = box.getAttribute("data-tpl");
       box.innerHTML = list.map(function (p, i) {
@@ -295,7 +314,18 @@
   /* ==========================================================================
      BRIDE GALLERY  (homepage #SanjhShringarBride row + Our Story gallery)
      ========================================================================== */
-  function safeLink(u) { return /^(https?:\/\/|\/|[a-z0-9-]+\.html)/i.test(u || "") ? u : ""; }
+  // Only links into this site (a page, or a full address on this site's domain)
+  function safeLink(u) {
+    u = String(u || "").trim();
+    if (/^(\/(?!\/)|[a-z0-9-]+\.html)/i.test(u)) return u;
+    try { var x = new URL(u); if (x.origin === location.origin) return x.pathname.replace(/^\//, "") + x.search + x.hash; } catch (e) { /* not a URL */ }
+    return "";
+  }
+  // Where "Shop her look" goes: the picked Wix product, else an on-site Outfit Link
+  function lookLink(b, P) {
+    var p = b.productId && (P || []).filter(function (x) { return x.id === b.productId; })[0];
+    return p ? { href: pdpUrl(p), name: p.name } : { href: safeLink(b.link), name: "" };
+  }
   function fitBrideRow() {
     var row = $("[data-brides-row]");
     if (!row) return;
@@ -305,18 +335,21 @@
     row.style.setProperty("--n", shown.length);
     row.classList.toggle("insta--few", shown.length < 6);
   }
-  function applyBrides(B) {
+  function applyBrides(B, P, C) {
+    applyReviews(B || [], P, C);
     if (!B || !B.length) { fitBrideRow(); return; }
     // Homepage row: brides marked "Show on Homepage" (or all, if none are marked) take the first slots
     var row = $("[data-brides-row]");
     if (row) {
       var picks = B.filter(function (b) { return b.home; });
       if (!picks.length) picks = B;
+      var max = countFor(row, C);
       $$("a", row).forEach(function (a, i) {
+        if (i >= max) { var x = $("img", a); if (x) { x.hidden = true; x.removeAttribute("src"); } return; }
         var b = picks[i]; if (!b) return;
         var im = $("img", a); if (!im) return;
         im.src = b.thumb; im.alt = b.name ? b.name + ", a Sanjh Shringar bride" : "A Sanjh Shringar bride"; im.hidden = false;
-        a.setAttribute("href", safeLink(b.link) || "about.html#brides");
+        a.setAttribute("href", lookLink(b, P).href || "about.html#brides");
         a.setAttribute("aria-label", b.name ? "See " + b.name + "'s look" : "See our brides");
         var cap = $(".insta__cap", a) || a.appendChild(document.createElement("span"));
         cap.className = "insta__cap"; cap.textContent = b.name || "";
@@ -327,12 +360,13 @@
     var gal = $("[data-brides-gallery]");
     if (gal) {
       gal.innerHTML = B.map(function (b, i) {
-        var link = safeLink(b.link);
+        var look = lookLink(b, P), link = look.href;
         return '<figure class="bride reveal" data-delay="' + (i % 3) * 80 + '">' +
           '<div class="bride__img media"><img src="' + esc(b.photo) + '" alt="' + esc(b.name ? b.name + ", a Sanjh Shringar bride" : "A Sanjh Shringar bride") + '" loading="lazy"></div>' +
           '<figcaption>' + (b.name ? '<strong class="bride__name">' + esc(b.name) + "</strong>" : "") +
             (b.caption ? '<span class="bride__cap">' + esc(b.caption) + "</span>" : "") +
-            (link ? '<a class="x-link" href="' + esc(link) + '">Shop her look <svg class="icon"><use href="#i-arrow"/></svg></a>' : "") +
+            (b.review ? '<span class="bride__review">“' + esc(b.review) + "”</span>" : "") +
+            (link ? '<a class="x-link" href="' + esc(link) + '">' + (look.name ? "Shop the " + esc(look.name) : "Shop her look") + ' <svg class="icon"><use href="#i-arrow"/></svg></a>' : "") +
           "</figcaption></figure>";
       }).join("");
       var sec = gal.closest("[data-brides-section]"); if (sec) sec.hidden = false;
@@ -340,10 +374,44 @@
     }
   }
 
+  /* Reviews: Brides entries with "Her review" filled in fill the homepage quote section
+     (one at a time, changing every 7 seconds). Without any, the quote.* rows are used
+     only when quote.show = yes. quote.show = no always hides it. */
+  function stars(n) {
+    var one = '<svg class="icon icon--fill"><use href="#i-star"/></svg>', s = "";
+    for (var i = 0; i < n; i++) s += one;
+    return s;
+  }
+  function applyReviews(B, P, C) {
+    var sec = $("[data-cms-section='quote']");
+    if (!sec) return;
+    var show = String((C && C["quote.show"] && C["quote.show"].text) || "").trim().toLowerCase();
+    var R = B.filter(function (b) { return b.review; });
+    if (!R.length || /^(no|hide|hidden|off|false|0)$/.test(show)) return;
+    R = R.slice(0, C && C["quote.count"] ? countFor(sec, C) : 6);
+    var im = $("[data-cms-img='quote.image']", sec), bq = $("blockquote", sec), cap = $("figcaption", sec), st = $(".stars", sec);
+    var i = 0;
+    function put(b) {
+      if (im) { im.src = b.photo; im.alt = b.name ? b.name + ", a Sanjh Shringar bride" : "A Sanjh Shringar bride"; im.hidden = false; }
+      if (bq) { bq.textContent = "“" + b.review.replace(/^["“]|["”]$/g, "") + "”"; bq.hidden = false; }
+      var look = lookLink(b, P);
+      if (cap) { cap.textContent = [b.name, look.name].filter(Boolean).join(" · "); cap.hidden = !cap.textContent; }
+      if (st) { st.innerHTML = stars(b.rating || 5); st.hidden = !b.rating; st.setAttribute("aria-label", (b.rating || 5) + " out of 5 stars"); }
+    }
+    put(R[0]);
+    sec.hidden = false; sec.removeAttribute("data-empty");
+    var reduce = window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (R.length > 1 && !reduce) setInterval(function () {
+      i = (i + 1) % R.length;
+      sec.classList.add("is-swapping");
+      setTimeout(function () { put(R[i]); sec.classList.remove("is-swapping"); }, 350);
+    }, 7000);
+  }
+
   /* ==========================================================================
      BOOT (runs once products are known)
      ========================================================================== */
-  function boot(P) {
+  function boot(P, C) {
     var LIVE = !!W;
     var wish = load("ss_wish", []);
 
@@ -383,7 +451,7 @@
     }
 
     $$("[data-grid]").forEach(function (g) {
-      var c = g.getAttribute("data-collection"), n = +g.getAttribute("data-limit") || 4;
+      var c = g.getAttribute("data-collection"), n = countFor(g, C);
       var cat = g.getAttribute("data-category");
       var list = cat ? P.filter(function (p) { return inCat(p, cat); }) : [];
       if (!list.length) list = P.filter(function (p) { return inCol(p, c); });

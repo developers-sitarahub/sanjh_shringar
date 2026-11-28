@@ -1301,6 +1301,11 @@ button[data-checkout][disabled] { opacity: .7; cursor: progress; }
 .bride__name { font-family: var(--font-display); font-size: 1.35rem; font-weight: 500; color: var(--maroon-ink); }
 .bride__cap { font-size: var(--fs-sm); color: var(--muted); line-height: 1.5; }
 .bride .x-link { min-height: 36px; }
+.bride__review { font-family: var(--font-display); font-style: italic; font-size: 1.05rem; line-height: 1.4; color: var(--maroon-ink); }
+
+/* Customer reviews in the homepage quote section fade between entries */
+.x-quote .x-quote__body, .x-quote .x-quote__img img { transition: opacity .35s var(--ease); }
+.x-quote.is-swapping .x-quote__body, .x-quote.is-swapping .x-quote__img img { opacity: 0; }
 @media (max-width: 860px) { .brides { grid-template-columns: repeat(2, 1fr); } }
 @media (max-width: 480px) { .brides { grid-template-columns: 1fr; } }
 

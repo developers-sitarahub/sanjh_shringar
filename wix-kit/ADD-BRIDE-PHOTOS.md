@@ -1,44 +1,38 @@
-# Bride photos (#SanjhShringarBride)
+# Customer & bride photos (#SanjhShringarBride)
 
-Brides' own photos live in a **Wix CMS collection called "Brides"**. It is separate from Wix Stores, so these photos never appear as products.
+Photos your brides and customers share live in the **Wix CMS collection "Brides"** (Wix dashboard → **CMS → Brides**). It is separate from Wix Stores, so these photos never appear as products.
 
-Where they show on the site:
-- **Homepage**, in the **#SanjhShringarBride** row: up to 6 photos. Photos marked **Show on Homepage** go here first. If none are marked, the first 6 are used. Any empty slots keep showing product photos.
-- **Our Story page**, in a new **"Our brides"** gallery with every photo. The gallery stays hidden until the collection has at least one photo.
+The collection is already set up and visitors can see it. You only add, edit or delete entries.
 
-## One-time setup (about 5 minutes)
+## Where they show
 
-1. Open your Wix dashboard and go to **CMS** (sometimes under *Content Manager*).
-2. Click **+ Create Collection**, then **Start from scratch**.
-3. Name it exactly **`Brides`**.
-   - After creating it, open the collection's **Settings** and check its **Collection ID**. If the ID is not `Brides`, put the real ID in `site/assets/wix-config.js` as `bridesCollection: "..."`.
-4. Add these fields. The **Title** field already exists; use it for the bride's name.
+| Place | What shows |
+|---|---|
+| Homepage photo row (**#SanjhShringarBride**) | Entries with **Show on Homepage** ticked. If none are ticked, the first ones. How many: the `insta.count` row in Homepage Content (max 6). |
+| Homepage review section | Every entry that has **Her review** filled in: photo, review, stars, her name and the outfit. Several reviews take turns every 7 seconds. Hidden when no entry has a review. |
+| Our Story page → "Our brides" | Every entry, with caption, review and a link to the outfit. |
 
-   | Field name | Field type | Required? | What it's for |
-   |---|---|---|---|
-   | Title | Text (already there) | Yes | Bride's name, e.g. `Aisha · Jaipur` |
-   | Photo | Image | Yes | Her photo. Entries without a photo are skipped. |
-   | Caption | Text | No | One short line, e.g. `Wore the Maroon Floral Lehenga for her pheras` |
-   | Outfit Link | URL | No | Link to the outfit she wore, e.g. `product.html?p=maroon-floral-lehenga`. Adds a "Shop her look" link. |
-   | Show on Homepage | Boolean | No | Tick to put her in the homepage row |
-   | Sort Order | Number | No | 1, 2, 3… to choose the order. Blank entries go last, newest first. |
+## Fields
 
-5. **Let visitors see it.** Open the collection's **Permissions** (*More actions → Permissions & privacy*) and set **"Who can view content"** to **Anyone**. Leave adding, updating and deleting set to **Admin** only.
-   - If you skip this, the site can't read the photos and nothing appears.
+| Field | Required? | What it's for |
+|---|---|---|
+| Title | Yes | Her name, e.g. `Aisha · Jaipur` |
+| Photo | Yes | Her photo. Entries without a photo are skipped. Portrait works best (cropped to 4:5, keeping the top). |
+| Caption | No | One short line, e.g. `Wore it for her pheras` |
+| **Outfit she wore** | No | Pick the product from your store list. Adds a "Shop the …" link and names the outfit under her review. |
+| Outfit Link | No | Only used if "Outfit she wore" is empty. Must be a page on this site, e.g. `product.html?p=maroon-floral-lehenga`. Links to other websites are ignored. |
+| **Her review** | No | What she said. Fill it in to show her in the homepage review section. |
+| **Stars (1-5)** | No | Her star rating. Leave empty to show no stars. |
+| Show on Homepage | No | Tick to put her in the homepage photo row |
+| Sort Order | No | 1, 2, 3… to choose the order. Blank entries go last, newest first. |
 
-## Adding a bride
+## Adding a customer
 
-1. In **CMS → Brides**, click **+ Add Item**.
-2. Fill in **Title** and upload the **Photo**. Portrait photos work best; the site crops them to 4:5, keeping the top of the photo.
-3. Optionally add a Caption and Outfit Link, tick Show on Homepage, and set a Sort Order.
-4. Save. The site updates on the next page refresh. **You don't need to re-upload the site ZIP to add photos.**
+1. **CMS → Brides → + Add Item**.
+2. Fill in **Title** and upload the **Photo**.
+3. Optionally pick **Outfit she wore**, add **Her review** and **Stars**, tick **Show on Homepage**, set **Sort Order**.
+4. Save. The site updates on the next page refresh. No re-upload or deploy needed.
 
-To remove a bride, delete her item, or clear her Photo field to hide her.
+To remove someone, delete her entry (or clear her Photo to hide her).
 
-## Before posting
-
-Only post photos the bride has agreed to share. Keep a record of that permission, for example in her WhatsApp chat.
-
-## For the outfit link
-
-Copy the part after the site address from the product page, e.g. `product.html?p=maroon-floral-lehenga`. A full `https://…` address also works.
+Only post photos and reviews the customer has agreed to share. Keep a record of that permission, for example in her WhatsApp chat.
