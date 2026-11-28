@@ -47,7 +47,7 @@
   setHdr();
   window.addEventListener("resize", setHdr);
   var cParam = params.get("c");
-  var navKey = cParam === "under-3k" ? "under-3k"
+  var navKey = /^(under-3k|indo-western|party)$/.test(cParam || "") ? cParam
     : (document.body.classList.contains("shop-page") ? "collection"
     : (document.body.classList.contains("about-page") ? "about"
     : (document.body.classList.contains("contact-page") ? "contact" : "")));
@@ -122,9 +122,9 @@
     var initCol = params.get("c") || "all";
     var initMeta = initCol === "wishlist" ? { title: "Your Wishlist", eyebrow: "Saved with love", intro: "The pieces you've fallen for." } : (COLS[initCol] || COLS.all);
     setShopMeta(initMeta);
-    var initTabs = ["all", "bridal", "bridesmaids", "modest", "lehengas", "sarees", "indo-western", "blouses"];
+    var initTabs = ["all", "indo-western", "party", "festive", "lehengas", "sarees", "modest", "bridal", "bridesmaids", "blouses"];
     $("[data-shop-tabs]").innerHTML = initTabs.map(function (t) {
-      return '<a role="tab" href="shop.html' + (t === "all" ? "" : "?c=" + t) + '" aria-selected="' + (t === initCol) + '">' + COLS[t].title.replace("Lehengas Under ₹3k", "Under ₹3k").replace("All Collections", "All") + "</a>";
+      return '<a role="tab" href="shop.html' + (t === "all" ? "" : "?c=" + t) + '" aria-selected="' + (t === initCol) + '">' + COLS[t].title.replace("All Collections", "All") + "</a>";
     }).join("");
     var priceGroup = $("[data-filter-price]");
     if (priceGroup && initCol === "under-3k") {
@@ -423,7 +423,7 @@
       var body = $("[data-cart-body]"), foot = $("[data-cart-foot]");
       if (!body) return;
       if (!cartState.lines.length) {
-        body.innerHTML = '<div class="cart__empty"><svg class="icon icon--lg"><use href="#i-bag"/></svg><p class="h3">Your bag is empty</p><p>Let’s find something beautiful for your celebration.</p><a class="btn btn--primary" href="shop.html?c=bridal">Shop bridal</a><a class="link-arrow" href="shop.html?c=bridesmaids">Or browse bridesmaids <svg class="icon"><use href="#i-arrow"/></svg></a></div>';
+        body.innerHTML = '<div class="cart__empty"><svg class="icon icon--lg"><use href="#i-bag"/></svg><p class="h3">Your bag is empty</p><p>Let’s find something beautiful for your celebration.</p><a class="btn btn--primary" href="shop.html?c=indo-western">Shop Indo-Western</a><a class="link-arrow" href="shop.html?c=party">Or browse party wear <svg class="icon"><use href="#i-arrow"/></svg></a></div>';
         foot.innerHTML = ""; return;
       }
       body.innerHTML = cartState.lines.map(function (l) {
@@ -490,7 +490,7 @@
     var sInput = $("#search-input"), sResults = $("[data-search-results]");
     function runSearch(q) {
       q = q.trim().toLowerCase();
-      if (!q) { sResults.innerHTML = '<p class="search__hint">Try "lehenga", "blue" or "modest".</p>'; return; }
+      if (!q) { sResults.innerHTML = '<p class="search__hint">Try "co-ord", "sequin" or "lehenga".</p>'; return; }
       var hits = P.filter(function (p) {
         return (p.name + " " + (p.occasion || "") + " " + p.cols.join(" ") + " " + (p.catNames || []).join(" ") + " " + (p.desc || "")).toLowerCase().indexOf(q) > -1;
       });
@@ -533,7 +533,7 @@
           "0-3000": COLS["under-3k"],
           "all": COLS.all,
           "3000-10000": { title: "₹3,000 – ₹10,000", eyebrow: "Shop by price", intro: "Curated pieces between ₹3,000 and ₹10,000." },
-          "10000-999999": { title: "₹10,000 & above", eyebrow: "Shop by price", intro: "Bridal & couture pieces ₹10,000 and above." }
+          "10000-999999": { title: "₹10,000 & above", eyebrow: "Shop by price", intro: "Statement and couture pieces ₹10,000 and above." }
         };
         setShopMeta(priceMetas[state.price] || COLS.all);
         var isU3k = state.price === "0-3000";

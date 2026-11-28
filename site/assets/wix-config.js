@@ -18,12 +18,14 @@ window.SS_WIX = {
   /* Map the site's collections to your Wix Stores category names
      (matching ignores case, spaces and symbols). */
   categories: {
+    "indo-western": ["Indo Western", "Indo-Western"],
+    "party":        ["Cocktail And Reception", "Reception", "Cocktail", "Party Wear"],
+    "festive":      ["Sangeet", "Haldi And Mehendi", "Festive"],
     "bridal":       ["Bridal", "Wedding Collection"],
     "bridesmaids":  ["Bridesmaids"],
     "modest":       ["Modest Edit"],
     "lehengas":     ["Lehengas"],
     "sarees":       ["Drape Sarees", "Sarees"],
-    "indo-western": ["Indo Western", "Indo-Western"],
     "blouses":      ["Designer Blouses", "Blouses"],
     "under-3k":     ["Under 3k", "Under ₹3k", "Lehengas Under 3k"]
   }

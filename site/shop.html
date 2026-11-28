@@ -4,14 +4,14 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Shop | Sanjh Shringar</title>
-  <meta name="description" content="Shop bridal lehengas, bridesmaid outfits, drape sarees, Indo-western sets and designer blouses, all made to your measurements.">
-  <meta name="theme-color" content="#4A0F1C">
+  <meta name="description" content="Shop Indo-western sets, cocktail and party wear, sangeet lehengas, drape sarees and designer blouses, all made to your measurements.">
+  <meta name="theme-color" content="#2A0F1F">
   <meta property="og:title" content="Shop | Sanjh Shringar">
-  <meta property="og:description" content="Shop bridal lehengas, bridesmaid outfits, drape sarees, Indo-western sets and designer blouses, all made to your measurements.">
+  <meta property="og:description" content="Shop Indo-western sets, cocktail and party wear, sangeet lehengas, drape sarees and designer blouses, all made to your measurements.">
   <link rel="icon" type="image/png" href="assets/favicon.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&family=Montserrat:wght@400;500;600;700&family=Tiro+Devanagari+Hindi&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..700;1,6..96,400..700&family=Jost:wght@300..700&family=Tiro+Devanagari+Hindi&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="assets/styles.css">
 </head>
 <body class="shop-page">
@@ -86,18 +86,22 @@
   <nav class="nav" aria-label="Main">
     <ul class="container nav__list">
       <li class="nav__item nav__item--drop">
-        <a class="nav__link" href="shop.html" data-nav="collection">Collection <svg class="icon nav__chev" aria-hidden="true"><use href="#i-chev"/></svg></a>
+        <a class="nav__link" href="shop.html" data-nav="collection">Shop <svg class="icon nav__chev" aria-hidden="true"><use href="#i-chev"/></svg></a>
         <div class="nav__drop" role="menu">
           <a href="shop.html">All Collections</a>
-          <a href="shop.html?c=bridal">The Bride</a>
-          <a href="shop.html?c=bridesmaids">Bridesmaids</a>
-          <a href="shop.html?c=modest">Modest Edit</a>
+          <a href="shop.html?c=indo-western">Indo-Western</a>
+          <a href="shop.html?c=party">Cocktail &amp; Party</a>
+          <a href="shop.html?c=festive">Sangeet &amp; Festive</a>
           <a href="shop.html?c=lehengas">Lehengas</a>
           <a href="shop.html?c=sarees">Drape Sarees</a>
-          <a href="shop.html?c=indo-western">Indo-Western</a>
+          <a href="shop.html?c=modest">Modest Edit</a>
+          <a href="shop.html?c=bridal">Wedding Edit</a>
+          <a href="shop.html?c=bridesmaids">Bridesmaids &amp; Squad</a>
           <a href="shop.html?c=blouses">Designer Blouses</a>
         </div>
       </li>
+      <li><a class="nav__link" href="shop.html?c=indo-western" data-nav="indo-western">Indo-Western</a></li>
+      <li><a class="nav__link" href="shop.html?c=party" data-nav="party">Party Wear</a></li>
       <li><a class="nav__link" href="shop.html?c=under-3k" data-nav="under-3k">Under ₹3k</a></li>
       <li><a class="nav__link" href="about.html" data-nav="about">Our Story</a></li>
       <li><a class="nav__link" href="contact.html" data-nav="contact">Contact</a></li>
@@ -114,13 +118,14 @@
       <button class="icon-btn" data-close-drawer aria-label="Close menu"><svg class="icon"><use href="#i-x"/></svg></button>
     </div>
     <nav class="drawer__nav" aria-label="Mobile">
-      <a href="shop.html?c=bridal">The Bride <small>Wedding</small></a>
-      <a href="shop.html?c=bridesmaids">Bridesmaids</a>
-      <a href="shop.html?c=modest">Modest Edit</a>
-      <a href="shop.html?c=lehengas">Lehengas</a>
+      <a href="shop.html">Shop All <small>New in</small></a>
       <a href="shop.html?c=indo-western">Indo-Western</a>
+      <a href="shop.html?c=party">Cocktail &amp; Party</a>
+      <a href="shop.html?c=festive">Sangeet &amp; Festive</a>
+      <a href="shop.html?c=lehengas">Lehengas</a>
       <a href="shop.html?c=sarees">Drape Sarees</a>
-      <a href="shop.html?c=blouses">Designer Blouses</a>
+      <a href="shop.html?c=modest">Modest Edit</a>
+      <a href="shop.html?c=bridal">Wedding Edit</a>
       <a href="shop.html?c=under-3k">Under ₹3k <small>Sale</small></a>
       <a href="about.html">Our Story</a>
       <a href="contact.html">Contact &amp; Styling Call</a>
@@ -158,8 +163,8 @@
       </form>
       <div class="search__chips" aria-label="Popular searches">
         <span>Popular:</span>
-        <button type="button" data-q="bridal">Bridal</button>
-        <button type="button" data-q="maroon">Maroon</button>
+        <button type="button" data-q="indo">Indo-Western</button>
+        <button type="button" data-q="sequin">Sequin</button>
         <button type="button" data-q="corset">Corset</button>
         <button type="button" data-q="saree">Saree</button>
         <button type="button" data-q="blouse">Blouse</button>
@@ -270,7 +275,7 @@
         <a href="index.html" class="logo" aria-label="Sanjh Shringar home">
           <img class="logo__img logo__img--footer" src="assets/logo-white.png" alt="Sanjh Shringar">
         </a>
-        <p style="margin-top:16px;max-width:30ch">Made to measure for your golden hour.</p>
+        <p style="margin-top:16px;max-width:30ch">Indo-fusion and party wear, made to your measurements.</p>
         <div class="footer__social">
           <a href="#" aria-label="Instagram"><svg class="icon"><use href="#i-insta"/></svg></a>
           <a href="https://wa.me/91XXXXXXXXXX" aria-label="WhatsApp"><svg class="icon"><use href="#i-chat"/></svg></a>
@@ -280,11 +285,11 @@
       <div>
         <h4>Shop</h4>
         <ul>
-          <li><a href="shop.html?c=bridal">Bridal Lehengas</a></li>
-          <li><a href="shop.html?c=bridesmaids">Bridesmaids</a></li>
-          <li><a href="shop.html?c=modest">Modest Edit</a></li>
-          <li><a href="shop.html?c=sarees">Drape Sarees</a></li>
           <li><a href="shop.html?c=indo-western">Indo-Western</a></li>
+          <li><a href="shop.html?c=party">Cocktail &amp; Party</a></li>
+          <li><a href="shop.html?c=festive">Sangeet &amp; Festive</a></li>
+          <li><a href="shop.html?c=lehengas">Lehengas</a></li>
+          <li><a href="shop.html?c=sarees">Drape Sarees</a></li>
           <li><a href="shop.html?c=blouses">Designer Blouses</a></li>
           <li><a href="shop.html?c=under-3k">Under ₹3k</a></li>
           <li><a href="shop.html">Shop All</a></li>
