@@ -4,8 +4,8 @@
   "description": "Sanjh Shringar storefront: static frontend on Wix Headless (Wix Stores + CMS backend).",
   "scripts": {
     "build": "python tools/build.py",
-    "serve": "python tools/build.py && python -m http.server 8090 --bind 127.0.0.1 --directory site",
-    "test": "node tools/tests/wix-mock.test.js",
+    "serve": "python tools/build.py && python tools/serve.py",
+    "test": "node tools/tests/wix-mock.test.js && node tools/tests/worker.test.mjs",
     "preview": "npm run build && wix preview",
     "release": "npm run build && npm test && wix release"
   },

@@ -33,3 +33,5 @@ def build() -> None:
 
 if __name__ == "__main__":
     build()
+    import build_worker  # clean-URL worker embeds the freshly built pages
+    build_worker.build()

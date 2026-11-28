@@ -1,9 +1,13 @@
-"""Rebuild the pages and package site/ for Wix Headless upload.
+"""DEPRECATED: the site now uses clean URLs served by server/entry.mjs, which a ZIP
+upload cannot include. Deploy with `npm run release` / GitHub Actions instead (see DEPLOY.md).
+
+Rebuild the pages and package site/ for Wix Headless upload.
 
 Usage:  python tools/make_upload_zip.py
 Output: wix-upload/sanjh-shringar-site.zip  (index.html at the root, forward-slash paths)
 """
 import os
+print("WARNING: ZIP upload has no clean-URL worker; /shop etc. will 404. Use `npm run release` instead.")
 import subprocess
 import sys
 import zipfile

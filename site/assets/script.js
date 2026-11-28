@@ -124,7 +124,7 @@
     setShopMeta(initMeta);
     var initTabs = ["all", "bridal", "bridesmaids", "modest", "lehengas", "sarees", "indo-western", "blouses"];
     $("[data-shop-tabs]").innerHTML = initTabs.map(function (t) {
-      return '<a role="tab" href="shop.html' + (t === "all" ? "" : "?c=" + t) + '" aria-selected="' + (t === initCol) + '">' + COLS[t].title.replace("Lehengas Under ₹3k", "Under ₹3k").replace("All Collections", "All") + "</a>";
+      return '<a role="tab" href="/shop' + (t === "all" ? "" : "?c=" + t) + '" aria-selected="' + (t === initCol) + '">' + COLS[t].title.replace("Lehengas Under ₹3k", "Under ₹3k").replace("All Collections", "All") + "</a>";
     }).join("");
     var priceGroup = $("[data-filter-price]");
     if (priceGroup && initCol === "under-3k") {
@@ -167,7 +167,7 @@
     : Promise.resolve([]);
 
   Promise.all([source, contentP]).then(function (r) { boot(r[0], r[1]); });
-  Promise.all([source, contentP, bridesP]).then(function (r) { applySiteContent(r[0], r[1]); applyBrides(r[2], r[0], r[1]); });
+  Promise.all([source, contentP, bridesP]).then(function (r) { applySiteContent(r[0], r[1]); applyBrides(r[2], r[0], r[1]); cleanLinks(); });
 
   // "<section>.count" in Homepage Content: how many items a homepage section shows
   function countFor(el, C) {
@@ -190,7 +190,7 @@
       || P.filter(function (p) { return p.h.indexOf(hs) === 0 || hs.indexOf(p.h) === 0 || slugify(p.name) === hs; })[0] || null;
   }
   function md(s) { return esc(s).replace(/\*([^*]+)\*/g, "<em>$1</em>").replace(/\s*\|\s*/g, "<br>"); }
-  var pdpUrl = function (p) { return "product.html?p=" + encodeURIComponent(p.h); };
+  var pdpUrl = function (p) { return "/product?p=" + encodeURIComponent(p.h); };
 
   function applySiteContent(P, C) {
     C = C || {};
@@ -288,7 +288,7 @@
       var p = findProduct(P, el.getAttribute("data-price-of"));
       if (p) {
         el.textContent = inr(p.price);
-        var a = el.closest("a[href^='product.html']"); if (a && p.wix) a.setAttribute("href", pdpUrl(p));
+        var a = el.closest("a[href^='/product']"); if (a && p.wix) a.setAttribute("href", pdpUrl(p));
       }
     });
 
@@ -314,11 +314,19 @@
   /* ==========================================================================
      BRIDE GALLERY  (homepage #SanjhShringarBride row + Our Story gallery)
      ========================================================================== */
+  // Old "shop.html?c=x" style links (e.g. typed into the Wix CMS) become clean "/shop?c=x"
+  function cleanUrl(u) {
+    return String(u || "").replace(/^(?:\.?\/)?(index|shop|product|about|contact|policies)\.html(?=$|[?#])/i,
+      function (m, n) { n = n.toLowerCase(); return n === "index" ? "/" : "/" + n; });
+  }
+  function cleanLinks() {
+    $$("a[href]").forEach(function (a) { var h = a.getAttribute("href"), c = cleanUrl(h); if (c !== h) a.setAttribute("href", c); });
+  }
   // Only links into this site (a page, or a full address on this site's domain)
   function safeLink(u) {
-    u = String(u || "").trim();
-    if (/^(\/(?!\/)|[a-z0-9-]+\.html)/i.test(u)) return u;
-    try { var x = new URL(u); if (x.origin === location.origin) return x.pathname.replace(/^\//, "") + x.search + x.hash; } catch (e) { /* not a URL */ }
+    u = cleanUrl(String(u || "").trim());
+    if (/^\/(?!\/)/.test(u)) return u;
+    try { var x = new URL(u); if (x.origin === location.origin) return cleanUrl(x.pathname) + x.search + x.hash; } catch (e) { /* not a URL */ }
     return "";
   }
   // Where "Shop her look" goes: the picked Wix product, else an on-site Outfit Link
@@ -349,7 +357,7 @@
         var b = picks[i]; if (!b) return;
         var im = $("img", a); if (!im) return;
         im.src = b.thumb; im.alt = b.name ? b.name + ", a Sanjh Shringar bride" : "A Sanjh Shringar bride"; im.hidden = false;
-        a.setAttribute("href", lookLink(b, P).href || "about.html#brides");
+        a.setAttribute("href", lookLink(b, P).href || "/about#brides");
         a.setAttribute("aria-label", b.name ? "See " + b.name + "'s look" : "See our brides");
         var cap = $(".insta__cap", a) || a.appendChild(document.createElement("span"));
         cap.className = "insta__cap"; cap.textContent = b.name || "";
@@ -444,7 +452,7 @@
           '<button class="btn btn--primary card__quick" data-quick="' + esc(p.h) + '">' + quickLabel + "</button>" +
         "</div>" +
         '<div class="card__body">' +
-          '<h3 class="card__name"><a href="product.html?p=' + encodeURIComponent(p.h) + '">' + esc(p.name) + "</a></h3>" +
+          '<h3 class="card__name"><a href="/product?p=' + encodeURIComponent(p.h) + '">' + esc(p.name) + "</a></h3>" +
           '<p class="card__meta">' + esc(p.occasion || "") + "</p>" +
           '<p class="price">' + inr(p.price) + (p.was ? " <s>" + inr(p.was) + '</s> <span class="save">Save ' + inr(p.was - p.price) + "</span>" : "") + "</p>" +
         "</div></article>";
@@ -517,13 +525,13 @@
       var body = $("[data-cart-body]"), foot = $("[data-cart-foot]");
       if (!body) return;
       if (!cartState.lines.length) {
-        body.innerHTML = '<div class="cart__empty"><svg class="icon icon--lg"><use href="#i-bag"/></svg><p class="h3">Your bag is empty</p><p>Let’s find something beautiful for your celebration.</p><a class="btn btn--primary" href="shop.html?c=bridal">Shop bridal</a><a class="link-arrow" href="shop.html?c=bridesmaids">Or browse bridesmaids <svg class="icon"><use href="#i-arrow"/></svg></a></div>';
+        body.innerHTML = '<div class="cart__empty"><svg class="icon icon--lg"><use href="#i-bag"/></svg><p class="h3">Your bag is empty</p><p>Let’s find something beautiful for your celebration.</p><a class="btn btn--primary" href="/shop?c=bridal">Shop bridal</a><a class="link-arrow" href="/shop?c=bridesmaids">Or browse bridesmaids <svg class="icon"><use href="#i-arrow"/></svg></a></div>';
         foot.innerHTML = ""; return;
       }
       body.innerHTML = cartState.lines.map(function (l) {
         var lp = !l.slug && l.productId ? P.filter(function (x) { return x.id === l.productId; })[0] : null;
         var slug = l.slug || (lp && lp.h);
-        var href = slug ? "product.html?p=" + encodeURIComponent(slug) : "#";
+        var href = slug ? "/product?p=" + encodeURIComponent(slug) : "#";
         return '<div class="cart__item"><a href="' + href + '">' + (l.image ? '<img src="' + esc(l.image) + '" alt="">' : "") + '</a><div class="cart__info">' +
           '<a class="cart__name" href="' + href + '">' + esc(l.name) + "</a>" +
           (l.desc ? '<span class="cart__meta">' + esc(l.desc) + "</span>" : "") +
@@ -554,7 +562,7 @@
 
     function quickAdd(h) {
       var p = byHandle(h); if (!p) return;
-      if (LIVE && hasChoices(p)) { location.href = "product.html?p=" + encodeURIComponent(p.h); return; }
+      if (LIVE && hasChoices(p)) { location.href = "/product?p=" + encodeURIComponent(p.h); return; }
       var size = (p.sizes || []).filter(function (s) { return (p.soldOut || []).indexOf(s) < 0; })[0] || "One size";
       var variantId = LIVE && p.variants && p.variants[0] ? p.variants[0].id : undefined;
       addToBag(p, { label: size, variantId: variantId }).then(function () { openLayer(cartEl); }, function () {});
@@ -590,7 +598,7 @@
       });
       sResults.innerHTML = hits.length
         ? '<p class="search__hint">' + hits.length + " result" + (hits.length > 1 ? "s" : "") + '</p><div class="search__grid">' + hits.slice(0, 8).map(function (p) {
-            return '<a class="search__hit" href="product.html?p=' + encodeURIComponent(p.h) + '">' + (p.images[0] ? '<img src="' + esc(p.images[0]) + '" alt="" loading="lazy">' : "") + "<span>" + esc(p.name) + "</span><strong>" + inr(p.price) + "</strong></a>";
+            return '<a class="search__hit" href="/product?p=' + encodeURIComponent(p.h) + '">' + (p.images[0] ? '<img src="' + esc(p.images[0]) + '" alt="" loading="lazy">' : "") + "<span>" + esc(p.name) + "</span><strong>" + inr(p.price) + "</strong></a>";
           }).join("") + "</div>"
         : '<p class="search__hint">No matches for "' + esc(q) + '". Message us and we\'ll help you find it.</p>';
     }
@@ -725,7 +733,7 @@
       document.title = p.name + " | Sanjh Shringar";
       var colKey = p.cols[0] || "all";
       $("[data-pdp-col]").textContent = (COLS[colKey] || COLS.all).title;
-      $("[data-pdp-col]").href = "shop.html" + (colKey === "all" ? "" : "?c=" + colKey);
+      $("[data-pdp-col]").href = "/shop" + (colKey === "all" ? "" : "?c=" + colKey);
       $("[data-pdp-crumb]").textContent = p.name;
       $("[data-pdp-occasion]").textContent = p.occasion || "";
       $("[data-pdp-name]").textContent = p.name;

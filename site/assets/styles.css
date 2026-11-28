@@ -1585,3 +1585,17 @@ h1, h2, h3, h4, .x-display, .x-h2, .x-giant, .x-tile__label h2, .buy__title, .x-
   .x-steps__n { width: 40px; height: 40px; font-size: 1rem; }
 }
 @media (prefers-reduced-motion: reduce) { .x-tile::before { transition: none; } }
+
+/* ---------- Shop + "You may also love": royal arched product cards ----------
+   (The homepage Wedding Edit rail keeps straight cards.) */
+[data-shop-grid] .card__media, [data-related] .card__media { border-radius: var(--arch); }
+[data-shop-grid] .card__media::after, [data-related] .card__media::after {
+  content: ""; position: absolute; inset: 8px; z-index: 2; pointer-events: none; border-radius: var(--arch);
+  border: 1px solid rgba(246, 193, 119, .55); transition: border-color var(--dur) var(--ease), inset var(--dur) var(--ease);
+}
+[data-shop-grid] .card:hover .card__media::after, [data-shop-grid] .card:focus-within .card__media::after,
+[data-related] .card:hover .card__media::after, [data-related] .card:focus-within .card__media::after { border-color: var(--gold-soft); inset: 11px; }
+/* Badges and heart sit below the curve of the arch */
+[data-shop-grid] .card__tags, [data-related] .card__tags { top: 20%; left: 12%; }
+[data-shop-grid] .card__wish, [data-related] .card__wish { top: 17%; right: 9%; }
+@media (prefers-reduced-motion: reduce) { [data-shop-grid] .card__media::after, [data-related] .card__media::after { transition: none; } }
