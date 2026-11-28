@@ -47,7 +47,7 @@
   setHdr();
   window.addEventListener("resize", setHdr);
   var cParam = params.get("c");
-  var navKey = /^(under-3k|indo-western|party)$/.test(cParam || "") ? cParam
+  var navKey = cParam === "under-3k" ? "under-3k"
     : (document.body.classList.contains("shop-page") ? "collection"
     : (document.body.classList.contains("about-page") ? "about"
     : (document.body.classList.contains("contact-page") ? "contact" : "")));
@@ -122,9 +122,9 @@
     var initCol = params.get("c") || "all";
     var initMeta = initCol === "wishlist" ? { title: "Your Wishlist", eyebrow: "Saved with love", intro: "The pieces you've fallen for." } : (COLS[initCol] || COLS.all);
     setShopMeta(initMeta);
-    var initTabs = ["all", "indo-western", "party", "festive", "lehengas", "sarees", "modest", "bridal", "bridesmaids", "blouses"];
+    var initTabs = ["all", "bridal", "bridesmaids", "modest", "lehengas", "sarees", "indo-western", "blouses"];
     $("[data-shop-tabs]").innerHTML = initTabs.map(function (t) {
-      return '<a role="tab" href="shop.html' + (t === "all" ? "" : "?c=" + t) + '" aria-selected="' + (t === initCol) + '">' + COLS[t].title.replace("All Collections", "All") + "</a>";
+      return '<a role="tab" href="shop.html' + (t === "all" ? "" : "?c=" + t) + '" aria-selected="' + (t === initCol) + '">' + COLS[t].title.replace("Lehengas Under ₹3k", "Under ₹3k").replace("All Collections", "All") + "</a>";
     }).join("");
     var priceGroup = $("[data-filter-price]");
     if (priceGroup && initCol === "under-3k") {
@@ -198,13 +198,28 @@
     $$("[data-cms-href]").forEach(function (el) { var l = get(el.getAttribute("data-cms-href"), "link"); if (l) el.setAttribute("href", l); });
     $$("[data-cms-img]").forEach(function (el) { var i = get(el.getAttribute("data-cms-img"), "image"); if (i) { el.src = i; el.hidden = false; } });
 
-    // Hero dress: the product in the Wix Stores category "Homepage Hero" (a CMS hero.image photo wins)
+    // Photos come only from Wix: a CMS photo if set, otherwise a product photo from the matching
+    // Wix Stores collection (never repeated on the page). Nothing is typed into the site.
+    var used = {};
+    function inColl(p, c) { return !c || c === "all" || (p.cols || []).indexOf(c) > -1 || (c === "under-3k" && p.price <= 3000); }
+    function pick(c) {
+      var list = P.filter(function (p) { return inColl(p, c); });
+      for (var k = 0; k < 4; k++) for (var j = 0; j < list.length; j++) {
+        var u = list[j].images && list[j].images[k];
+        if (u && !used[u]) { used[u] = 1; return { p: list[j], src: u }; }
+      }
+      return null;
+    }
+    $$("[data-cms-img]").forEach(function (el) { if (!el.hidden && el.src) used[el.src] = 1; });
+
+    // Hero dress: the "Homepage Hero" category, else the first piece in its collection (Bridal)
     var hero = $("[data-home-hero]");
     if (hero) {
-      var hp = P.filter(function (p) { return inCat(p, hero.getAttribute("data-home-hero")); })[0];
+      var hp = P.filter(function (p) { return inCat(p, hero.getAttribute("data-home-hero")); })[0]
+        || P.filter(function (p) { return inColl(p, hero.getAttribute("data-home-fallback")) && p.images[0]; })[0];
       if (hp) {
         var hImg = $("[data-hero-img]", hero);
-        if (hImg && !get("hero.image", "image") && hp.images[0]) { hImg.src = hp.images[0]; hImg.alt = hp.name; hImg.hidden = false; }
+        if (hImg && !get("hero.image", "image") && hp.images[0]) { hImg.src = hp.images[0]; hImg.alt = hp.name; hImg.hidden = false; used[hp.images[0]] = 1; }
         var tagEl = $("[data-hero-link]", hero);
         if (tagEl) { tagEl.setAttribute("href", pdpUrl(hp)); tagEl.hidden = false; }
         var n = $("[data-hero-name]", hero); if (n) n.textContent = hp.name;
@@ -215,15 +230,25 @@
     // Shop banner: the image set on that collection's Wix Stores category (a CMS shop.banner photo wins)
     var shopBanner = $("[data-shop-banner]");
     if (shopBanner && !get("shop.banner", "image") && W && W.collectionImage) {
-      W.collectionImage(params.get("c") || "all").then(function (src) {
-        if (src) { shopBanner.src = src; shopBanner.hidden = false; }
+      var bCol = params.get("c") || "all";
+      W.collectionImage(bCol).then(function (src) {
+        var f = src ? null : P.filter(function (p) { return inColl(p, bCol) && p.images[0]; })[0];
+        if (src || f) { shopBanner.src = src || f.images[0]; shopBanner.hidden = false; }
       });
     }
 
-    // Product lists: only the products in their own Wix Stores category; the section hides when it's empty
+    // Empty CMS photo slots: a photo from the slot's Wix collection
+    $$("[data-cms-img][data-img-fallback]").forEach(function (el) {
+      if (!el.hidden) return;
+      var f = pick(el.getAttribute("data-img-fallback"));
+      if (f) { el.src = f.src; el.alt = el.alt || f.p.name; el.hidden = false; }
+    });
+
+    // Product lists: their "Homepage …" category, else their collection; the section hides only if both are empty
     $$("[data-home-list]").forEach(function (box) {
-      var list = P.filter(function (p) { return inCat(p, box.getAttribute("data-home-list")); })
-        .slice(0, +box.getAttribute("data-limit") || 5);
+      var list = P.filter(function (p) { return inCat(p, box.getAttribute("data-home-list")); });
+      if (!list.length) list = P.filter(function (p) { return inColl(p, box.getAttribute("data-home-fallback")); });
+      list = list.slice(0, +box.getAttribute("data-limit") || 5);
       if (!list.length) { hideSection(box); return; }
       var tpl = box.getAttribute("data-tpl");
       box.innerHTML = list.map(function (p, i) {
@@ -360,7 +385,8 @@
     $$("[data-grid]").forEach(function (g) {
       var c = g.getAttribute("data-collection"), n = +g.getAttribute("data-limit") || 4;
       var cat = g.getAttribute("data-category");
-      var list = cat ? P.filter(function (p) { return inCat(p, cat); }) : P.filter(function (p) { return inCol(p, c); });
+      var list = cat ? P.filter(function (p) { return inCat(p, cat); }) : [];
+      if (!list.length) list = P.filter(function (p) { return inCol(p, c); });
       if (!list.length) { g.innerHTML = ""; hideSection(g); return; }
       g.innerHTML = list.slice(0, n).map(card).join("");
     });
@@ -423,7 +449,7 @@
       var body = $("[data-cart-body]"), foot = $("[data-cart-foot]");
       if (!body) return;
       if (!cartState.lines.length) {
-        body.innerHTML = '<div class="cart__empty"><svg class="icon icon--lg"><use href="#i-bag"/></svg><p class="h3">Your bag is empty</p><p>Let’s find something beautiful for your celebration.</p><a class="btn btn--primary" href="shop.html?c=indo-western">Shop Indo-Western</a><a class="link-arrow" href="shop.html?c=party">Or browse party wear <svg class="icon"><use href="#i-arrow"/></svg></a></div>';
+        body.innerHTML = '<div class="cart__empty"><svg class="icon icon--lg"><use href="#i-bag"/></svg><p class="h3">Your bag is empty</p><p>Let’s find something beautiful for your celebration.</p><a class="btn btn--primary" href="shop.html?c=bridal">Shop bridal</a><a class="link-arrow" href="shop.html?c=bridesmaids">Or browse bridesmaids <svg class="icon"><use href="#i-arrow"/></svg></a></div>';
         foot.innerHTML = ""; return;
       }
       body.innerHTML = cartState.lines.map(function (l) {
@@ -490,7 +516,7 @@
     var sInput = $("#search-input"), sResults = $("[data-search-results]");
     function runSearch(q) {
       q = q.trim().toLowerCase();
-      if (!q) { sResults.innerHTML = '<p class="search__hint">Try "co-ord", "sequin" or "lehenga".</p>'; return; }
+      if (!q) { sResults.innerHTML = '<p class="search__hint">Try "lehenga", "blue" or "modest".</p>'; return; }
       var hits = P.filter(function (p) {
         return (p.name + " " + (p.occasion || "") + " " + p.cols.join(" ") + " " + (p.catNames || []).join(" ") + " " + (p.desc || "")).toLowerCase().indexOf(q) > -1;
       });
@@ -533,7 +559,7 @@
           "0-3000": COLS["under-3k"],
           "all": COLS.all,
           "3000-10000": { title: "₹3,000 – ₹10,000", eyebrow: "Shop by price", intro: "Curated pieces between ₹3,000 and ₹10,000." },
-          "10000-999999": { title: "₹10,000 & above", eyebrow: "Shop by price", intro: "Statement and couture pieces ₹10,000 and above." }
+          "10000-999999": { title: "₹10,000 & above", eyebrow: "Shop by price", intro: "Bridal & couture pieces ₹10,000 and above." }
         };
         setShopMeta(priceMetas[state.price] || COLS.all);
         var isU3k = state.price === "0-3000";

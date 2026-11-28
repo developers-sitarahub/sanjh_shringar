@@ -1,5 +1,5 @@
 TITLE: Contact & Book a Styling Call | Sanjh Shringar
-DESC: Talk to a Sanjh Shringar stylist on WhatsApp, book a free video-call styling session, or plan matching outfits for your group.
+DESC: Talk to a Sanjh Shringar stylist on WhatsApp, book a free bridal video-call consultation, or plan a bridesmaid group order.
 BODY: contact-page
 ---
 <section class="page-hero page-hero--compact">
@@ -20,7 +20,7 @@ BODY: contact-page
 
 <section class="section section--cream" id="book">
   <div class="container booking">
-    <div class="booking__img media arch reveal"><img alt="" loading="lazy" data-cms-img="contact.book" hidden></div>
+    <div class="booking__img media arch reveal"><img alt="" loading="lazy" data-cms-img="contact.book" data-img-fallback="bridal" hidden></div>
     <div class="reveal" data-delay="100">
       <h2 class="x-h2" style="margin-bottom:12px">Book a <em>styling call</em></h2>
       <p class="lead">20 minutes. Free. See every fabric live.</p>
@@ -28,9 +28,9 @@ BODY: contact-page
         <div class="form__grid">
           <div class="f"><label for="b-name">Your name</label><input id="b-name" name="name" required autocomplete="name"><p class="f__err"></p></div>
           <div class="f"><label for="b-phone">WhatsApp number</label><input id="b-phone" name="phone" type="tel" required autocomplete="tel" placeholder="+91"><p class="f__err"></p></div>
-          <div class="f"><label for="b-date">Event date</label><input id="b-date" name="date" type="date"><p class="f__hint">Helps us plan your timeline</p></div>
+          <div class="f"><label for="b-date">Wedding / function date</label><input id="b-date" name="date" type="date"><p class="f__hint">Helps us plan your timeline</p></div>
           <div class="f"><label for="b-for">I'm shopping for</label>
-            <select id="b-for" name="for"><option>A party / cocktail look</option><option>Sangeet or festive look</option><option>My wedding look</option><option>A group (squad / bridesmaids)</option><option>Modest / covered look</option><option>A guest outfit</option></select></div>
+            <select id="b-for" name="for"><option>My bridal look</option><option>Bridesmaids (group)</option><option>Modest / covered look</option><option>A guest outfit</option></select></div>
           <div class="f f--full"><label for="b-note">Tell us about your dream look <span>(optional)</span></label><textarea id="b-note" name="note" rows="4" placeholder="Colours you love, functions, budget, references…"></textarea></div>
         </div>
         <button class="btn btn--primary" type="submit"><svg class="icon"><use href="#i-calendar"/></svg> Request my styling call</button>
@@ -43,19 +43,19 @@ BODY: contact-page
 <section class="section" id="group">
   <div class="container booking booking--rev">
     <div class="reveal">
-      <h2 class="x-h2" style="margin-bottom:12px">Squad &amp; <em>group orders</em></h2>
+      <h2 class="x-h2" style="margin-bottom:12px">Bridesmaid <em>group orders</em></h2>
       <p class="lead">Share your palette. We'll coordinate the rest.</p>
       <ul class="circle__perks">
-        <li><svg class="icon"><use href="#i-palette"/></svg><div><strong>Free colour planning</strong><span>Matched to your event theme.</span></div></li>
+        <li><svg class="icon"><use href="#i-palette"/></svg><div><strong>Free colour planning</strong><span>Matched to your wedding theme.</span></div></li>
         <li><svg class="icon"><use href="#i-users"/></svg><div><strong>Group savings</strong><span>Special pricing for 4+ outfits.</span></div></li>
-        <li><svg class="icon"><use href="#i-truck"/></svg><div><strong>Flexible delivery</strong><span>To one address or to each person.</span></div></li>
+        <li><svg class="icon"><use href="#i-truck"/></svg><div><strong>Flexible delivery</strong><span>To one address or to each bridesmaid.</span></div></li>
       </ul>
-      <a class="btn btn--wa" href="https://wa.me/91XXXXXXXXXX?text=Hi%20Sanjh%20Shringar%2C%20I%27d%20like%20to%20plan%20matching%20group%20outfits"><svg class="icon"><use href="#i-chat"/></svg> Plan on WhatsApp</a>
+      <a class="btn btn--wa" href="https://wa.me/91XXXXXXXXXX?text=Hi%20Sanjh%20Shringar%2C%20I%27d%20like%20to%20plan%20bridesmaid%20outfits"><svg class="icon"><use href="#i-chat"/></svg> Plan on WhatsApp</a>
     </div>
     <div class="group-collage reveal" data-delay="100">
-      <div class="media arch"><img alt="" loading="lazy" data-cms-img="contact.group1" hidden></div>
-      <div class="media arch"><img alt="" loading="lazy" data-cms-img="contact.group2" hidden></div>
-      <div class="media arch"><img alt="" loading="lazy" data-cms-img="contact.group3" hidden></div>
+      <div class="media arch"><img alt="" loading="lazy" data-cms-img="contact.group1" data-img-fallback="bridesmaids" hidden></div>
+      <div class="media arch"><img alt="" loading="lazy" data-cms-img="contact.group2" data-img-fallback="bridesmaids" hidden></div>
+      <div class="media arch"><img alt="" loading="lazy" data-cms-img="contact.group3" data-img-fallback="bridesmaids" hidden></div>
     </div>
   </div>
 </section>
